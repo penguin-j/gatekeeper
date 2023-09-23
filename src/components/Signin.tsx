@@ -22,6 +22,7 @@ const Signin: React.FC = () => {
       console.log('ログイン成功')
     } catch (error) {
       setError('ログインエラー: ' + error.message)
+      console.log(error)
     }
   }
 
