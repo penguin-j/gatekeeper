@@ -1,0 +1,34 @@
+PoolName: "dev-gatekeeper-user-pool"
+Policies:
+    PasswordPolicy:
+        MinimumLength: 8
+        RequireUppercase: true
+        RequireLowercase: true
+        RequireNumbers: true
+        RequireSymbols: true
+        TemporaryPasswordValidityDays: 7
+AutoVerifiedAttributes:
+    - email
+AdminCreateUserConfig:
+    AllowAdminCreateUserOnly: false
+Schema:
+    -
+        Name: "sub"
+        AttributeDataType: String
+        DeveloperOnlyAttribute: false
+        Mutable: false
+        Required: true
+        StringAttributeConstraints:
+            MinLength: "1"
+            MaxLength: "2048"
+    -
+        Name: "email"
+        AttributeDataType: String
+        DeveloperOnlyAttribute: false
+        Mutable: false
+        Required: true
+        StringAttributeConstraints:
+            MinLength: "0"
+            MaxLength: "2048"
+UsernameConfiguration:
+    CaseSensitive: true
