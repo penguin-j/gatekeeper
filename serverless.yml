@@ -20,6 +20,8 @@ service: gatekeeper-server
 # Check out our docs for more details
 frameworkVersion: "3"
 
+useDotenv: true
+
 provider:
   name: aws
   runtime: nodejs18.x
@@ -102,13 +104,12 @@ functions:
 #      variable2: value2
 
 # you can add CloudFormation resource templates here
-#resources:
-#  Resources:
-#    NewResource:
-#      Type: AWS::S3::Bucket
-#      Properties:
-#        BucketName: my-new-bucket
-#  Outputs:
-#     NewOutput:
-#       Description: "Description for the output"
-#       Value: "Some output value"
+resources:
+  Resources:
+    LambdaPermission:
+      Type: "AWS::Lambda::Permission"
+      Properties:
+        Action: "lambda:InvokeFunction"
+        FunctionName: arn:aws:lambda:${self:provider.region}:${env:AWS_ACCOUNT_ID}:function:gatekeeper-server-${self:provider.stage}-confirm-sign-up
+        Principal: "cognito-idp.amazonaws.com"
+        SourceArn: arn:aws:cognito-idp:${self:provider.region}:${env:AWS_ACCOUNT_ID}:userpool/${env:AWS_COGNITO_USER_POOL_ID}
