@@ -1,11 +1,14 @@
 import React, { useState } from 'react'
 import { Amplify, Auth } from 'aws-amplify'
 import awsExports from '../aws-exports'
+import { useRouter } from 'next/navigation'
 
 const Signin: React.FC = () => {
   const [username, setUsername] = useState<string>('')
   const [password, setPassword] = useState<string>('')
   const [error, setError] = useState<string>('')
+
+  const router = useRouter()
 
   const signIn = async () => {
     // Configure Amplify in index file or root file
@@ -20,6 +23,8 @@ const Signin: React.FC = () => {
     try {
       await Auth.signIn(username, password)
       console.log('ログイン成功')
+      // サインイン成功後にトップページに遷移
+      router.push('/')
     } catch (error) {
       setError('ログインエラー: ' + error.message)
       console.log(error)
