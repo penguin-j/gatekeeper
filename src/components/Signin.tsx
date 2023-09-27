@@ -7,6 +7,7 @@ const Signin: React.FC = () => {
   const [username, setUsername] = useState<string>('')
   const [password, setPassword] = useState<string>('')
   const [error, setError] = useState<string>('')
+  const [showPassword, setShowPassword] = useState<boolean>(false)
 
   const router = useRouter()
 
@@ -48,11 +49,14 @@ const Signin: React.FC = () => {
         <label>
           Password:
           <input
-            type='password'
+            type={showPassword ? 'text' : 'password'}
             id='password'
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
+          <button type='button' onClick={() => setShowPassword(!showPassword)}>
+            {showPassword ? 'Hide Password' : 'Show Password'}
+          </button>
         </label>
         <br />
         <button type='button' onClick={signIn}>
