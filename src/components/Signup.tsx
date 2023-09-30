@@ -1,12 +1,15 @@
 import React, { useState } from 'react'
 import { Amplify, Auth } from 'aws-amplify'
 import awsExports from '../aws-exports'
+import { useRouter } from 'next/navigation'
 
 const Signup = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [email, setEmail] = useState('')
   const [error, setError] = useState('')
+
+  const router = useRouter()
 
   const signUp = async () => {
     Amplify.configure({
@@ -26,6 +29,8 @@ const Signup = () => {
         },
       })
       console.log('サインアップ成功')
+      // サインアップ成功後にトップページに遷移
+      router.push('/')
     } catch (error) {
       setError('サインアップエラー: ' + error.message)
     }
