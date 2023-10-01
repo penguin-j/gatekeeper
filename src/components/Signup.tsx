@@ -8,6 +8,7 @@ const Signup = () => {
   const [password, setPassword] = useState('')
   const [email, setEmail] = useState('')
   const [error, setError] = useState('')
+  const [showPassword, setShowPassword] = useState<boolean>(false)
 
   const router = useRouter()
 
@@ -53,11 +54,14 @@ const Signup = () => {
         <label>
           パスワード:
           <input
-            type='password'
+            type={showPassword ? 'text' : 'password'}
             id='password'
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
+          <button type='button' onClick={() => setShowPassword(!showPassword)}>
+            {showPassword ? 'Hide Password' : 'Show Password'}
+          </button>
         </label>
         <br />
         <label>
